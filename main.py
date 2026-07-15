@@ -1,15 +1,17 @@
 """
-Inventory Manager — offline Windows desktop entry point.
+Inventory Manager — offline desktop entry point.
 
 Boot sequence:
-1. Write early startup log (survives Win8 launch failures)
+1. Write early startup log (survives launch failures)
 2. Ensure portable folders exist (backups/, logs/, …)
 3. Initialize logging
 4. Create / migrate SQLite schema and seed lookups
 5. Build MainWindow + controllers
 6. Start Qt event loop
 
-GUI uses PySide2 (Qt 5.15) for Windows 8 offline compatibility.
+GUI uses ``utils.qt`` shim:
+- PySide6 on Linux / modern Windows (development)
+- PySide2 on Windows 8 offline packaged builds
 """
 
 from __future__ import annotations
@@ -19,7 +21,7 @@ import traceback
 
 
 def main() -> int:
-    # Startup log must work even if later imports fail (common on Win8 USB copies).
+    # Startup log must work even if later imports fail.
     from utils.startup_log import write_startup, write_startup_exception
 
     write_startup("Process started")
@@ -51,12 +53,12 @@ def main() -> int:
         return 1
 
     try:
-        from PySide2.QtWidgets import QApplication, QMessageBox
+        from utils.qt import QT_API, QApplication, QMessageBox, qt_exec
 
-        write_startup("PySide2 imported successfully")
+        write_startup(f"Qt binding imported: {QT_API}")
     except Exception as exc:  # noqa: BLE001
-        write_startup_exception("import_PySide2", exc)
-        logger.error("PySide2 import failed: %s\n%s", exc, traceback.format_exc())
+        write_startup_exception("import_qt", exc)
+        logger.error("Qt import failed: %s\n%s", exc, traceback.format_exc())
         return 1
 
     try:
@@ -68,11 +70,11 @@ def main() -> int:
         from views.main_window import MainWindow
     except Exception as exc:  # noqa: BLE001
         write_startup_exception("import_application_modules", exc)
-        logger.error("Module import failed: %s\n%s",exc, traceback.format_exc())
+        logger.error("Module import failed: %s\n%s", exc, traceback.format_exc())
         return 1
 
-    logger.info("Starting %s", APP_NAME)
-    write_startup(f"Starting {APP_NAME}")
+    logger.info("Starting %s (%s)", APP_NAME, QT_API)
+    write_startup(f"Starting {APP_NAME} with {QT_API}")
 
     app = QApplication(sys.argv)
     app.setApplicationName(APP_NAME)
@@ -107,7 +109,7 @@ def main() -> int:
         window.show()
         write_startup("UI ready — entering event loop")
         logger.info("UI ready")
-        return app.exec_()
+        return qt_exec(app)
     except Exception as exc:  # noqa: BLE001
         write_startup_exception("ui_startup", exc)
         logger.error("UI startup failed: %s\n%s", exc, traceback.format_exc())

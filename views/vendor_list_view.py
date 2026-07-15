@@ -6,15 +6,7 @@ from __future__ import annotations
 
 from typing import List
 
-from PySide2.QtCore import Signal
-from PySide2.QtWidgets import (
-    QHBoxLayout,
-    QLabel,
-    QLineEdit,
-    QPushButton,
-    QVBoxLayout,
-    QWidget,
-)
+from utils.qt import QHBoxLayout, QLabel, QLineEdit, QPushButton, QVBoxLayout, QWidget, Signal
 
 from models.dto import VendorDTO
 from views.widgets.excel_table import ExcelTableWidget

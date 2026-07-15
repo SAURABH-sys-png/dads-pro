@@ -4,7 +4,7 @@ Main application window — hosts a QStackedWidget of screens.
 
 from __future__ import annotations
 
-from PySide2.QtWidgets import QMainWindow, QStackedWidget, QStatusBar
+from utils.qt import QMainWindow, QStackedWidget, QStatusBar
 
 from config.settings import DEFAULT_WINDOW_TITLE, MAIN_WINDOW_MIN_HEIGHT, MAIN_WINDOW_MIN_WIDTH
 from views.home_view import HomeView
@@ -37,10 +37,10 @@ class MainWindow(QMainWindow):
         self.vendor_details_view = VendorDetailsView()
         self.settings_view = SettingsView()
 
-        self.stack.addWidget(self.home_view)              # 0
-        self.stack.addWidget(self.vendor_list_view)       # 1
-        self.stack.addWidget(self.vendor_details_view)    # 2
-        self.stack.addWidget(self.settings_view)          # 3
+        self.stack.addWidget(self.home_view)
+        self.stack.addWidget(self.vendor_list_view)
+        self.stack.addWidget(self.vendor_details_view)
+        self.stack.addWidget(self.settings_view)
 
         self.setCentralWidget(self.stack)
         self.setStatusBar(QStatusBar())

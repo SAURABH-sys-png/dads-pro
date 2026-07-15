@@ -3,8 +3,6 @@ Excel-like table widget with sorting, multi-select, and context menu.
 
 Provides keyboard navigation (built into QTableWidget), resizable columns,
 Copy / Delete / Export actions via right-click, and optional paste hooks.
-
-Uses PySide2 / Qt 5.15 APIs for Windows 8 offline compatibility.
 """
 
 from __future__ import annotations
@@ -12,17 +10,18 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Callable, List, Optional, Sequence
 
-from PySide2.QtCore import Qt, Signal
-from PySide2.QtGui import QKeySequence
-from PySide2.QtWidgets import (
+from utils.qt import (
     QAbstractItemView,
     QAction,
     QApplication,
     QFileDialog,
     QHeaderView,
+    QKeySequence,
     QMenu,
+    Qt,
     QTableWidget,
     QTableWidgetItem,
+    Signal,
 )
 
 
@@ -185,7 +184,11 @@ class ExcelTableWidget(QTableWidget):
         menu.addAction("Delete", self._emit_delete)
         menu.addSeparator()
         menu.addAction("Export…", lambda: self.export_to_csv())
-        menu.exec_(self.viewport().mapToGlobal(pos))
+        global_pos = self.viewport().mapToGlobal(pos)
+        if hasattr(menu, "exec_"):
+            menu.exec_(global_pos)
+        else:
+            menu.exec(global_pos)
 
     def _on_double_click(self, item: QTableWidgetItem) -> None:
         first = self.item(item.row(), 0)

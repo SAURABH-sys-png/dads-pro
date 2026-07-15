@@ -1,75 +1,51 @@
 # Inventory Manager
 
-Offline Windows desktop application for **Army Non-CSD canteen** vendor and product management.
+Offline desktop application for **Army Non-CSD canteen** vendor and product management.
 
-## Windows 8 deployment (highest priority)
+## Run on Linux (development)
 
-This project targets **Windows 8 (64-bit), fully offline, USB portable**.
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python main.py
+```
 
-| Component | Choice | Why |
-|-----------|--------|-----|
-| GUI | **PySide2 5.15** (Qt 5) | Qt 6 / PySide6 requires Windows 10+ |
-| Database | SQLite + SQLAlchemy | No server, no internet |
-| Packaging | PyInstaller one-folder | Double-click `.exe`, no Python install |
+Uses **PySide6** via `utils/qt.py`. Works fully offline with a local SQLite file.
 
-### Build the portable folder (on a Windows PC)
+## Windows 8 offline USB deploy
 
-1. Install **Python 3.8, 3.9, or 3.10** (64-bit). Do **not** use 3.11+.
-2. Open Command Prompt in the project folder:
+Build on a Windows PC with **Python 3.8–3.10** (not 3.11+):
 
 ```bat
 py -3.9 -m venv venv
 venv\Scripts\activate
-pip install -r requirements.txt
+pip install -r requirements-win8.txt
 packaging\build_windows.bat
 ```
 
-3. Copy the entire output folder to USB:
+Copy `dist\InventoryManager\` to USB and double-click `InventoryManager.exe`.
+If launch fails, check `logs\startup.log`.
 
-```text
-dist\InventoryManager\
-    InventoryManager.exe
-    platforms\          (contains qwindows.dll)
-    styles\
-    backups\
-    logs\
-    assets\
-    icons\
-    *.dll / Python runtime files
-```
+| Target | Qt binding | Requirements file |
+|--------|------------|-------------------|
+| Linux / Win10+ dev | PySide6 | `requirements.txt` |
+| Windows 8 packaged | PySide2 5.15 | `requirements-win8.txt` |
 
-4. On the offline Windows 8 PC: double-click `InventoryManager.exe`.
-
-If launch fails, open `logs\startup.log` on the USB drive — it records the failure reason.
-
-### Run from source (developer machine)
-
-```bash
-# Requires Python 3.8–3.10 with PySide2 installed
-python main.py
-```
-
-## Phase 1 features
-
-- Vendor Management (CRUD, search, details)
-- Product Management per vendor (CRUD, search, Excel-like grid)
-- Local SQLite (`inventory.db` next to the exe)
-- One-click Backup / Restore
-- Logging under `logs/`
+UI code imports only from `utils.qt`, which auto-selects the available binding.
 
 ## Architecture
 
-MVC + Repository + Service — UI is the only layer that depends on Qt:
+MVC + Repository + Service — only the UI depends on Qt:
 
 | Layer | Role |
 |-------|------|
-| `views/` | PySide2 UI only |
-| `controllers/` | Wire UI signals to services |
+| `views/` | Screens (via `utils.qt`) |
+| `controllers/` | Wire UI → services |
 | `services/` | Validation and business rules |
-| `repositories/` | SQLAlchemy / SQLite access |
+| `repositories/` | SQLAlchemy / SQLite |
 | `models/` | ORM entities + DTOs |
 | `database/` | Engine, schema, seed data |
-| `config/` / `utils/` | Settings, paths, logging |
-| `packaging/` | PyInstaller spec + Win8 build scripts |
+| `packaging/` | PyInstaller Win8 build |
 
-All data paths resolve from the exe folder (`utils.paths.get_app_root`), so any drive letter (C:, D:, E:, USB) works.
+Paths resolve from the app folder (`utils.paths.get_app_root`) so USB/any drive letter works.

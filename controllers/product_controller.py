@@ -6,7 +6,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, List
 
-from PySide2.QtWidgets import QDialog
+from utils.qt import QDialog, qt_exec
 
 from services.product_service import ProductService
 from utils.dialogs import ask_yes_no, show_error, show_info, show_warning
@@ -63,7 +63,7 @@ class ProductController:
             units=self.service.list_units(),
             parent=self.window,
         )
-        if dialog.exec_() != QDialog.Accepted:
+        if qt_exec(dialog) != QDialog.Accepted:
             return
         try:
             created = self.service.create_product(dialog.get_data())
@@ -95,7 +95,7 @@ class ProductController:
             parent=self.window,
             product=product,
         )
-        if dialog.exec_() != QDialog.Accepted:
+        if qt_exec(dialog) != QDialog.Accepted:
             return
         try:
             updated = self.service.update_product(product_id, dialog.get_data())

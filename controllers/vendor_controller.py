@@ -6,7 +6,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, List
 
-from PySide2.QtWidgets import QDialog
+from utils.qt import QDialog, qt_exec
 
 from services.vendor_service import VendorService
 from utils.dialogs import ask_yes_no, show_error, show_info, show_warning
@@ -63,7 +63,7 @@ class VendorController:
 
     def add_vendor(self) -> None:
         dialog = VendorFormDialog(self.window)
-        if dialog.exec_() != QDialog.Accepted:
+        if qt_exec(dialog) != QDialog.Accepted:
             return
         try:
             created = self.service.create_vendor(dialog.get_data())
@@ -89,7 +89,7 @@ class VendorController:
             return
 
         dialog = VendorFormDialog(self.window, vendor=vendor)
-        if dialog.exec_() != QDialog.Accepted:
+        if qt_exec(dialog) != QDialog.Accepted:
             return
         try:
             updated = self.service.update_vendor(vendor_id, dialog.get_data())

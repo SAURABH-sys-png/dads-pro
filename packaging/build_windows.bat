@@ -11,7 +11,7 @@ if not exist "venv\Scripts\activate.bat" (
     echo [ERROR] Create a venv first:
     echo   py -3.9 -m venv venv
     echo   venv\Scripts\activate
-    echo   pip install -r requirements.txt
+    echo   pip install -r requirements-win8.txt
     exit /b 1
 )
 

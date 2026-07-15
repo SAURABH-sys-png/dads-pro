@@ -6,16 +6,17 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from PySide2.QtCore import Qt, Signal
-from PySide2.QtWidgets import (
+from utils.qt import (
     QFormLayout,
     QFrame,
     QHBoxLayout,
     QLabel,
     QLineEdit,
     QPushButton,
+    Qt,
     QVBoxLayout,
     QWidget,
+    Signal,
 )
 
 from models.dto import ProductDTO, VendorDTO

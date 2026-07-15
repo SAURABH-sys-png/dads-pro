@@ -1,21 +1,20 @@
 """
 Home / landing screen with primary module navigation.
-
-Uses PySide2 / Qt 5.15 APIs for Windows 8 offline compatibility.
 """
 
 from __future__ import annotations
 
-from PySide2.QtCore import Qt, Signal
-from PySide2.QtGui import QFont
-from PySide2.QtWidgets import (
+from utils.qt import (
+    QFont,
     QFrame,
     QHBoxLayout,
     QLabel,
     QPushButton,
     QSizePolicy,
+    Qt,
     QVBoxLayout,
     QWidget,
+    Signal,
 )
 
 from config.settings import APP_NAME, APP_VERSION, ORGANIZATION_NAME

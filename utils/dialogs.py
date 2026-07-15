@@ -6,7 +6,7 @@ from __future__ import annotations
 
 from typing import Optional
 
-from PySide2.QtWidgets import QMessageBox, QWidget
+from utils.qt import QMessageBox, QWidget
 
 
 def show_info(parent: Optional[QWidget], title: str, message: str) -> None:

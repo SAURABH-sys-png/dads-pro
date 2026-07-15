@@ -7,10 +7,10 @@ from __future__ import annotations
 from datetime import date
 from typing import List, Optional
 
-from PySide2.QtCore import QDate
-from PySide2.QtWidgets import (
+from utils.qt import (
     QCheckBox,
     QComboBox,
+    QDate,
     QDateEdit,
     QDialog,
     QDialogButtonBox,

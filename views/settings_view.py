@@ -4,11 +4,11 @@ Simple Settings screen (placeholder for Phase 1 — ready for future options).
 
 from __future__ import annotations
 
-from PySide2.QtCore import Signal
-from PySide2.QtWidgets import QFormLayout, QLabel, QPushButton, QVBoxLayout, QWidget
+from utils.qt import QFormLayout, QLabel, QPushButton, QVBoxLayout, QWidget, Signal
 
 from config.settings import APP_NAME, APP_VERSION
 from utils.paths import get_app_root, get_database_path
+from utils.qt import QT_API
 
 
 class SettingsView(QWidget):
@@ -27,6 +27,7 @@ class SettingsView(QWidget):
 
         form = QFormLayout()
         form.addRow("Application:", QLabel(f"{APP_NAME} v{APP_VERSION}"))
+        form.addRow("Qt binding:", QLabel(QT_API))
         form.addRow("Mode:", QLabel("Fully offline (no internet required)"))
         form.addRow("App folder:", QLabel(str(get_app_root())))
         form.addRow("Database:", QLabel(str(get_database_path())))

@@ -6,7 +6,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from PySide2.QtWidgets import QFileDialog
+from utils.qt import QFileDialog
 
 from services.backup_service import BackupService
 from utils.dialogs import ask_yes_no, show_error, show_info

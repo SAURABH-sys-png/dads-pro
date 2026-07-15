@@ -6,7 +6,7 @@ from __future__ import annotations
 
 from typing import Optional
 
-from PySide2.QtWidgets import (
+from utils.qt import (
     QDialog,
     QDialogButtonBox,
     QFormLayout,
