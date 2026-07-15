@@ -20,8 +20,10 @@ Uses **PySide6** via `utils/qt.py`. Fully offline with a local SQLite file.
 
 ### Build once (Windows PC with internet)
 
-1. Install [Python 3.10.11 64-bit](https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe) — tick **Add to PATH**.
-2. Double-click **`BUILD_WINDOWS8.bat`** in this project folder.
+1. Install [Python 3.10.11 64-bit](https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe) — tick **Add to PATH**, then open a **new** Command Prompt.
+2. Double-click **`BUILD_WINDOWS8.bat`** (does **not** need Administrator).
+   - Window stays open on success or failure; full log is written to `build_log.txt`.
+   - If the window still flashes away, use **`BUILD_WINDOWS8_KEEP_OPEN.bat`** instead.
 3. Copy `dist\InventoryManager\` onto USB.
 
 ### Run on Windows 8 (no Python, no internet)

@@ -17,11 +17,16 @@
 # 1. Install Python 3.10.11 64-bit:
 #      https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe
 #    Tick: "Add python.exe to PATH"
+#    Then open a NEW Command Prompt (old ones keep the old PATH).
 #
 # 2. Copy this whole project folder onto that PC.
 #
 # 3. Double-click:
 #      BUILD_WINDOWS8.bat
+#    (Administrator is NOT required.)
+#    The window stays open. If it still closes instantly, use:
+#      BUILD_WINDOWS8_KEEP_OPEN.bat
+#    Errors are also saved to build_log.txt in the project folder.
 #
 # 4. Wait until it prints BUILD OK.
 #
