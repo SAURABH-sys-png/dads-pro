@@ -1,0 +1,7 @@
+# Visual C++ runtime note for Windows 8 USB deploys:
+# PyInstaller usually bundles VCRUNTIME140.dll with the build.
+# If InventoryManager.exe fails immediately with a missing DLL dialog,
+# copy VCRUNTIME140.dll / MSVCP140.dll from the build PC's System32
+# into the InventoryManager folder next to the exe.
+#
+# This file is documentation only.

@@ -1,0 +1,38 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environment (do not copy to USB target machines via git)
+venv/
+.venv/
+
+# Local runtime data (created on first run / USB deploy)
+inventory.db
+inventory.db-wal
+inventory.db-shm
+logs/*.log
+logs/*.log.*
+backups/*.db
+backups/*.db-wal
+backups/*.db-shm
+
+# Keep folder placeholders
+!backups/.gitkeep
+!logs/.gitkeep
+!assets/.gitkeep
+!icons/.gitkeep
+
+# PyInstaller
+build/
+dist/
+*.spec.bak
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db

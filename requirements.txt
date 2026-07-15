@@ -1,0 +1,27 @@
+"""
+Lean runtime dependencies for offline Windows 8 packaging.
+
+Install on the BUILD PC (Windows 8/10) with Python 3.8, 3.9, or 3.10:
+
+    py -3.9 -m venv venv
+    venv\\Scripts\\activate
+    pip install -r requirements.txt
+
+Do NOT use Python 3.11+ for Win8 builds — PySide2 wheels stop at <3.11.
+Do NOT use PySide6 — Qt 6 requires Windows 10+.
+"""
+
+# GUI — Qt 5.15 (Windows 7 / 8 / 8.1 / 10)
+PySide2==5.15.2.1
+shiboken2==5.15.2.1
+
+# Database
+SQLAlchemy==2.0.36
+greenlet==3.0.3
+typing_extensions==4.12.2
+
+# Packaging (build machine only; not required at runtime on target PC)
+pyinstaller==5.13.2
+pyinstaller-hooks-contrib==2024.7
+altgraph==0.17.4
+setuptools>=65.0.0
