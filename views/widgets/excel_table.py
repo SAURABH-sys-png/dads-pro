@@ -22,6 +22,7 @@ from utils.qt import (
     QTableWidget,
     QTableWidgetItem,
     Signal,
+    qt_popup,
 )
 
 
@@ -185,10 +186,7 @@ class ExcelTableWidget(QTableWidget):
         menu.addSeparator()
         menu.addAction("Export…", lambda: self.export_to_csv())
         global_pos = self.viewport().mapToGlobal(pos)
-        if hasattr(menu, "exec_"):
-            menu.exec_(global_pos)
-        else:
-            menu.exec(global_pos)
+        qt_popup(menu, global_pos)
 
     def _on_double_click(self, item: QTableWidgetItem) -> None:
         first = self.item(item.row(), 0)

@@ -83,10 +83,18 @@ except ImportError:  # Windows 8 offline packaging target
 
 
 def qt_exec(widget) -> int:
-    """Run a modal dialog / app event loop on both Qt5 and Qt6."""
+    """Run a modal dialog / app / menu on both Qt5 and Qt6."""
     if hasattr(widget, "exec_"):
         return int(widget.exec_())
     return int(widget.exec())
+
+
+def qt_popup(menu, position) -> None:
+    """Show a context menu at a global position (Qt5 + Qt6)."""
+    if hasattr(menu, "exec_"):
+        menu.exec_(position)
+    else:
+        menu.exec(position)
 
 
 __all__ = [
@@ -125,4 +133,5 @@ __all__ = [
     "QWidget",
     "Signal",
     "qt_exec",
+    "qt_popup",
 ]

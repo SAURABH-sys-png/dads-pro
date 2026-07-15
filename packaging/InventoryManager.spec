@@ -2,14 +2,13 @@
 """
 PyInstaller spec — portable one-folder build for Windows 8 offline deploy.
 
-Build on a Windows PC (Python 3.8–3.10 + PySide2):
+Build on a Windows PC (Python 3.8–3.10 + PySide2). Prefer:
 
-    packaging\\build_windows.bat
+    BUILD_WINDOWS8.bat
 
 Or manually:
 
-    pyinstaller --noconfirm --clean packaging\\InventoryManager.spec
-    python packaging\\post_build_flatten.py
+    packaging\\build_windows.bat
 """
 
 import os

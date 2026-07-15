@@ -1,7 +1,5 @@
-"""
-Optional Phase-2+ libraries. NOT required for Win8 Vendor/Product Phase 1.
-Keep offline; install only when those modules are implemented.
-"""
+# Optional Phase-2+ libraries. NOT required for Win8 Vendor/Product Phase 1.
+# Keep offline; install only when those modules are implemented.
 
 openpyxl==3.1.5
 reportlab==4.2.5

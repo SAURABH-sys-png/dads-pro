@@ -11,28 +11,30 @@ pip install -r requirements.txt
 python main.py
 ```
 
-Uses **PySide6** via `utils/qt.py`. Works fully offline with a local SQLite file.
+Uses **PySide6** via `utils/qt.py`. Fully offline with a local SQLite file.
 
-## Windows 8 offline USB deploy
+## Windows 8 offline USB deploy (end-user executable)
 
-Build on a Windows PC with **Python 3.8–3.10** (not 3.11+):
+**Latest usable Python for the build PC: 3.10.11**  
+(Python 3.11+ cannot install PySide2; PySide6/Qt6 cannot run on Windows 8.)
 
-```bat
-py -3.9 -m venv venv
-venv\Scripts\activate
-pip install -r requirements-win8.txt
-packaging\build_windows.bat
-```
+### Build once (Windows PC with internet)
 
-Copy `dist\InventoryManager\` to USB and double-click `InventoryManager.exe`.
-If launch fails, check `logs\startup.log`.
+1. Install [Python 3.10.11 64-bit](https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe) — tick **Add to PATH**.
+2. Double-click **`BUILD_WINDOWS8.bat`** in this project folder.
+3. Copy `dist\InventoryManager\` onto USB.
 
-| Target | Qt binding | Requirements file |
-|--------|------------|-------------------|
-| Linux / Win10+ dev | PySide6 | `requirements.txt` |
-| Windows 8 packaged | PySide2 5.15 | `requirements-win8.txt` |
+### Run on Windows 8 (no Python, no internet)
 
-UI code imports only from `utils.qt`, which auto-selects the available binding.
+Double-click **`InventoryManager.exe`** (or `START_HERE.bat`).  
+If launch fails, open `logs\startup.log` next to the exe.
+
+| Target | Qt binding | Requirements | Python on build PC |
+|--------|------------|--------------|--------------------|
+| Linux / Win10+ dev | PySide6 | `requirements.txt` | 3.10+ |
+| Windows 8 packaged | PySide2 5.15 | `requirements-win8.txt` | **3.8–3.10** (prefer **3.10.11**) |
+
+UI code imports only from `utils.qt`, which auto-selects the available binding. The frozen USB folder embeds Python + Qt — the Win8 PC needs neither installed.
 
 ## Architecture
 
@@ -48,4 +50,4 @@ MVC + Repository + Service — only the UI depends on Qt:
 | `database/` | Engine, schema, seed data |
 | `packaging/` | PyInstaller Win8 build |
 
-Paths resolve from the app folder (`utils.paths.get_app_root`) so USB/any drive letter works.
+Paths resolve from the app folder (`utils.paths.get_app_root`) so USB / any drive letter works.

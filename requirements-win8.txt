@@ -1,16 +1,12 @@
-"""
-Windows 8 offline packaging dependencies.
-
-Install on the BUILD PC with Python 3.8, 3.9, or 3.10 only:
-
-    py -3.9 -m venv venv
-    venv\\Scripts\\activate
-    pip install -r requirements-win8.txt
-    packaging\\build_windows.bat
-
-Do NOT use Python 3.11+ — PySide2 wheels stop at <3.11.
-Do NOT use PySide6 — Qt 6 requires Windows 10+.
-"""
+# Windows 8 offline packaging (MUST use Python 3.8, 3.9, or 3.10 — latest: 3.10.11)
+#
+#   py -3.10 -m venv venv
+#   venv\Scripts\activate
+#   pip install -r requirements-win8.txt
+#   BUILD_WINDOWS8.bat
+#
+# Do NOT use Python 3.11+ — PySide2 wheels stop at <3.11.
+# Do NOT use PySide6 — Qt 6 requires Windows 10+.
 
 # GUI — Qt 5.15 (Windows 7 / 8 / 8.1)
 PySide2==5.15.2.1
@@ -25,4 +21,5 @@ typing_extensions==4.12.2
 pyinstaller==5.13.2
 pyinstaller-hooks-contrib==2024.7
 altgraph==0.17.4
-setuptools>=65.0.0
+setuptools>=65.0.0,<70
+wheel

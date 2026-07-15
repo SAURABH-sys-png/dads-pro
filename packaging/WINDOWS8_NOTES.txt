@@ -1,7 +1,57 @@
-# Visual C++ runtime note for Windows 8 USB deploys:
-# PyInstaller usually bundles VCRUNTIME140.dll with the build.
-# If InventoryManager.exe fails immediately with a missing DLL dialog,
-# copy VCRUNTIME140.dll / MSVCP140.dll from the build PC's System32
-# into the InventoryManager folder next to the exe.
+# HOW TO DEPLOY ON WINDOWS 8 (OFFLINE USB)
+# ========================================
+#
+# IMPORTANT — Python version
+# --------------------------
+# Latest Python that can POWER this Windows 8 build is **3.10.11**.
+#   - Python 3.11+ cannot install PySide2 (required for Win8 GUI).
+#   - PySide6 / Qt6 require Windows 10+ and will NOT run on Windows 8.
+#   - The finished USB folder does NOT need Python on the Win8 PC.
+#
+# Official Windows 8 support:
+#   - Windows 8 / 8.1 → package with Python 3.10.11 + PySide2 5.15
+#
+#
+# STEP A — Build once (on any Windows PC that has internet)
+# ---------------------------------------------------------
+# 1. Install Python 3.10.11 64-bit:
+#      https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe
+#    Tick: "Add python.exe to PATH"
+#
+# 2. Copy this whole project folder onto that PC.
+#
+# 3. Double-click:
+#      BUILD_WINDOWS8.bat
+#
+# 4. Wait until it prints BUILD OK.
+#
+# 5. Copy the folder:
+#      dist\InventoryManager\
+#    onto a USB stick (the whole folder, not just the .exe).
+#
+#
+# STEP B — Run on Windows 8 (no internet, no Python)
+# --------------------------------------------------
+# 1. Plug in USB.
+# 2. Open InventoryManager\
+# 3. Double-click InventoryManager.exe  (or START_HERE.bat)
+# 4. First run creates inventory.db, logs\, backups\ next to the exe.
+#
+#
+# If it does not start
+# --------------------
+# - Open logs\startup.log next to the exe — it records the failure reason.
+# - If Windows shows a missing DLL dialog, on the BUILD PC re-run
+#   BUILD_WINDOWS8.bat (it copies VCRUNTIME*.dll / MSVCP140.dll).
+#   Or install "Visual C++ Redistributable 2015-2022 x64" once on the
+#   Win8 PC from USB (offline installer copied beforehand).
+#
+#
+# Linux development (separate)
+# ----------------------------
+#   python3 -m venv venv
+#   source venv/bin/activate
+#   pip install -r requirements.txt
+#   python main.py
 #
 # This file is documentation only.
